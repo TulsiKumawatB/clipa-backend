@@ -19,19 +19,11 @@ class MinioClient:
             print(f"✅ Bucket '{self.bucket_name}' created")
     
     def upload_video(self, video_file, filename):
-        """
-        Upload video to MiniO and return URL
-        """
-        # Generate unique filename
         ext = filename.split('.')[-1]
         unique_filename = f"videos/{uuid.uuid4()}.{ext}"
-        
-        # Get file size
         video_file.seek(0, os.SEEK_END)
         file_size = video_file.tell()
         video_file.seek(0)
-        
-        # Upload
         self.client.put_object(
             self.bucket_name,
             unique_filename,
@@ -39,22 +31,15 @@ class MinioClient:
             length=file_size,
             content_type='video/mp4'
         )
-        
-        # Generate URL
         url = f"http://{settings.MINIO_ENDPOINT}/{self.bucket_name}/{unique_filename}"
         return url
     
     def upload_thumbnail(self, thumbnail_file, filename):
-        """
-        Upload thumbnail to MiniO and return URL
-        """
         ext = filename.split('.')[-1]
         unique_filename = f"thumbnails/{uuid.uuid4()}.{ext}"
-        
         thumbnail_file.seek(0, os.SEEK_END)
         file_size = thumbnail_file.tell()
         thumbnail_file.seek(0)
-        
         self.client.put_object(
             self.bucket_name,
             unique_filename,
@@ -62,6 +47,21 @@ class MinioClient:
             length=file_size,
             content_type='image/jpeg'
         )
-        
+        url = f"http://{settings.MINIO_ENDPOINT}/{self.bucket_name}/{unique_filename}"
+        return url
+
+    def upload_profile_pic(self, image_file, filename):
+        ext = filename.split('.')[-1]
+        unique_filename = f"profiles/{uuid.uuid4()}.{ext}"
+        image_file.seek(0, os.SEEK_END)
+        file_size = image_file.tell()
+        image_file.seek(0)
+        self.client.put_object(
+            self.bucket_name,
+            unique_filename,
+            image_file,
+            length=file_size,
+            content_type='image/jpeg'
+        )
         url = f"http://{settings.MINIO_ENDPOINT}/{self.bucket_name}/{unique_filename}"
         return url

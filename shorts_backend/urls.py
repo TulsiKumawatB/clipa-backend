@@ -6,4 +6,5 @@ urlpatterns = [
     path('api/accounts/', include('accounts.urls')),
     path('api/videos/', include('videos.urls')),
     path('api/interactions/', include('interactions.urls')),
+    path('api/notifications/', include('notifications.urls')),  # 👈 YEH LINE ADD KARO
 ]

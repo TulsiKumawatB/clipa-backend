@@ -1,3 +1,2 @@
-from django.contrib import admin
-
-# Register your models here.
+# admin_panel/admin.py - intentionally left empty
+# User model already registered in accounts/admin.py

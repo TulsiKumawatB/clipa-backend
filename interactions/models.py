@@ -14,6 +14,8 @@ class Comment(models.Model):
 
     class Meta:
         ordering = ['-created_at']
+        # 👇 Ek user ek video par ek hi top-level comment kar sakta hai
+        unique_together = ['user', 'video', 'parent']
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='likes')
@@ -22,3 +24,14 @@ class Like(models.Model):
 
     class Meta:
         unique_together = ['user', 'video']
+
+class CommentLike(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comment_likes')
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name='likes')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        unique_together = ['user', 'comment']
+
+    def __str__(self):
+        return f"{self.user.username} likes comment {self.comment.id}"

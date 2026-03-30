@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'videos',
     'interactions',
     'admin_panel',
+    'notifications',
+
 ]
 
 MIDDLEWARE = [
@@ -156,3 +158,7 @@ MINIO_ACCESS_KEY = 'minioadmin'
 MINIO_SECRET_KEY = 'minioadmin'
 MINIO_BUCKET_NAME = 'shorts-videos'
 MINIO_SECURE = False
+
+# File upload size limit increase (5MB)
+DATA_UPLOAD_MAX_MEMORY_SIZE = 5242880  # 5MB
+FILE_UPLOAD_MAX_MEMORY_SIZE = 5242880   # 5MB
